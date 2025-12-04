@@ -29,14 +29,21 @@ User.init(
       password : {
         type: DataTypes.STRING,
         allowNull: false
+    },
+      SSN: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       },
       createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE
+        allowNull: true,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
       },
       updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE
+        allowNull: true,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
       }
   },
   {
