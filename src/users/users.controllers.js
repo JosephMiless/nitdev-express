@@ -3,12 +3,13 @@ import { comparePassword, hashPassword } from "../utils/bcrypt.js";
 import { loginUserSchema } from "../validators/users.js";
 import { aToken } from "../config/jwt.js";
 import { User } from "../models/user.js";
-import { generateStateSecurityNumber } from "../utils/helpers.js";
+import { generateAccountNumber, generateStateSecurityNumber } from "../utils/helpers.js";
+import {Account} from "../models/account.js";
 
 export const signUpuserController = async (req, res) => {
   try {
     // destructure data from the frontend
-    let { firstName, lastName, email, password } = req.body;
+    let { firstName, lastName, email, password} = req.body;
 
     // validate user input
 
@@ -31,15 +32,27 @@ export const signUpuserController = async (req, res) => {
 
     const hashedPassword = await hashPassword(password);
 
-    const newUser = User.create({
+    const newUser = await User.create({
       ...req.body,
       password: hashedPassword,
       SSN: generateStateSecurityNumber(),
     });
 
+    const account = await Account.create({
+      userId: newUser.id,
+      accountNumber: generateAccountNumber(),
+      bankName: "Access Bank Plc.",
+
+
+    });
+
+ 
+
+
     return res.status(201).json({
       message: `User registered successfulyy`,
       user: newUser,
+      account
     });
   } catch (error) {
     console.error("Error signing up user", error);
