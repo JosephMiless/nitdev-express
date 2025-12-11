@@ -15,4 +15,4 @@ export function generateAccountNumber() {
     const randomNumberString = randomNumber.toString();
     // return the string
     return randomNumberString;
-}   
+};

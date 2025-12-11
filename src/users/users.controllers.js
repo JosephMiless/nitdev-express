@@ -46,9 +46,6 @@ export const signUpuserController = async (req, res) => {
 
     });
 
- 
-
-
     return res.status(201).json({
       message: `User registered successfulyy`,
       user: newUser,
