@@ -46,7 +46,7 @@ export const transferController = async (req, res) => {
         };
 
         const newBalance = parseFloat(senderAcct.balance) - parseFloat(amount);
-
+        
         if(tFrom.currency !== tTo.currency){
             amount = await convertCurrency(tFrom.currency, tTo.currency, amount);
         };
